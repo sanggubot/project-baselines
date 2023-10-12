@@ -2,6 +2,8 @@
 ARG VARIANT=3-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/python:${VARIANT}
 
-# Poetry
-ARG POETRY_VERSION="none"
-RUN if [ "${POETRY_VERSION}" != "none" ]; then su vscode -c "umask 0002 && pip3 install poetry==${POETRY_VERSION}"; fi
+RUN pipx install poetry && pipx inject poetry poetry-plugin-up
+
+# # Poetry
+# ARG POETRY_VERSION="none"
+# RUN if [ "${POETRY_VERSION}" != "none" ]; then su vscode -c "umask 0002 && pip3 install poetry==${POETRY_VERSION}"; fi
