@@ -4,7 +4,7 @@
 		"dockerfile": "Dockerfile",
 		"context": "..",
 		"args": { 
-			"VARIANT": "3.10-bullseye"
+			"PYTHON_VERSION": "3.10-bullseye"
 		}
 	},
 
