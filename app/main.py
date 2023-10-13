@@ -1,39 +1,57 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 app = FastAPI(
     title="project-baselines/python-devcontainer-fastapi",
     version="0.1.0",
-    # redoc_url=None,
-    # docs_url=None,
 )
 
-class Item(BaseModel):
-    id: str
-    value: str
+responses = {
+    status.HTTP_404_NOT_FOUND: {"description": "The item was not found"},
+    status.HTTP_422_UNPROCESSABLE_ENTITY: {"description": "Invalid ID supplied"},
+    status.HTTP_200_OK: {"description": "Item requested by ID"},
+}
 
-class Message(BaseModel):
-    message: str
+
+class RequestModel(BaseModel):
+    id: str = Field(title="id of item", description="id of item")
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "id": "foo",
+                },
+                {
+                    "id": "foo2",
+                },
+            ]
+        }
+    }
 
 
-@app.get(
-    path="/items/{item_id}",
-    description="get item",
-    response_model=Item,
-    responses={
-        404: {"model": Message, "description": "The item was not found"},
-        200: {
-            "description": "Item requested by ID",
-            "content": {
-                "application/json": {
-                    "example": {"id": "bar", "value": "The bar tenders"}
-                }
-            },
-        },
-    },
+class ResponseModel(BaseModel):
+    value: str = Field(title="value of item", description="value of item")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "value": "bar",
+            }
+        }
+
+
+@app.post(
+    path="/items",
+    tags=["items"],
+    description="Get item by ID",
+    response_model=ResponseModel,
+    responses=responses,
 )
-async def read_item(item_id: str):
-    if item_id == "foo":
-        return {"id": "foo", "value": "there goes my hero"}
-    return JSONResponse(status_code=404, content={"message": "Item not found"})
+async def read_item(body: RequestModel) -> ResponseModel:
+    if body.id == "foo":
+        return {"value": "bar"}
+    return JSONResponse(
+        status_code=status.HTTP_404_NOT_FOUND, content={"message": "Item not found"}
+    )
