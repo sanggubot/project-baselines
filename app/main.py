@@ -17,18 +17,13 @@ responses = {
 class RequestModel(BaseModel):
     id: str = Field(title="id of item", description="id of item")
 
-    model_config = {
-        "json_schema_extra": {
+    class Config:
+        json_schema_extra = {
             "examples": [
-                {
-                    "id": "foo",
-                },
-                {
-                    "id": "foo2",
-                },
+                {"id": "foo"},
+                {"id": "bar"},
             ]
         }
-    }
 
 
 class ResponseModel(BaseModel):
@@ -36,9 +31,10 @@ class ResponseModel(BaseModel):
 
     class Config:
         json_schema_extra = {
-            "example": {
-                "value": "bar",
-            }
+            "examples": [
+                {"value": "foofoo"},
+                {"value": "barbar"},
+            ]
         }
 
 
