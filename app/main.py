@@ -1,39 +1,28 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from main_model import *
+
 
 app = FastAPI(
     title="project-baselines/python-devcontainer-fastapi",
     version="0.1.0",
-    # redoc_url=None,
-    # docs_url=None,
-)
-
-class Item(BaseModel):
-    id: str
-    value: str
-
-class Message(BaseModel):
-    message: str
-
-
-@app.get(
-    path="/items/{item_id}",
-    description="get item",
-    response_model=Item,
     responses={
-        404: {"model": Message, "description": "The item was not found"},
-        200: {
-            "description": "Item requested by ID",
-            "content": {
-                "application/json": {
-                    "example": {"id": "bar", "value": "The bar tenders"}
-                }
-            },
-        },
+        status.HTTP_404_NOT_FOUND: {"description": "The item was not found"},
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {"description": "Invalid ID supplied"},
+        status.HTTP_200_OK: {"description": "Item requested by ID"},
     },
 )
-async def read_item(item_id: str):
-    if item_id == "foo":
-        return {"id": "foo", "value": "there goes my hero"}
-    return JSONResponse(status_code=404, content={"message": "Item not found"})
+
+
+@app.post(
+    path="/items",
+    tags=["items"],
+    description="Get item by ID",
+    response_model=ItemsResponseModel,
+)
+async def read_item(body: ItemsRequestModel) -> ItemsResponseModel:
+    if body.id == "foo":
+        return {"value": "bar"}
+    return JSONResponse(
+        status_code=status.HTTP_404_NOT_FOUND, content={"message": "Item not found"}
+    )

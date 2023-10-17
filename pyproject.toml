@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "project-baselines(python-devcontainer-fastapi)"
+name = "python-devcontainer-fastapi"
 version = "0.1.0"
 description = ""
 authors = ["sanggubot <sanggubot@gmail.com>"]
