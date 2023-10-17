@@ -1,6 +1,6 @@
-# Python Development Environment with DevContainer, Docker, and Poetry
+# Python Fastapi Development Environment with DevContainer, Docker, and Poetry
 
-This is a basic project setup for a Python development environment using DevContainer, Docker, and Poetry. It includes custom workspace settings for Visual Studio Code (VSCode) with a Black formatter configuration and a maximum line length of 100 characters.
+This is a basic Fastapi project setup for a Python development environment using DevContainer, Docker, and Poetry. It includes custom workspace settings for Visual Studio Code (VSCode) with a Black formatter configuration and a maximum line length of 100 characters.
 
 
 ## Getting Started
@@ -12,9 +12,13 @@ This is a basic project setup for a Python development environment using DevCont
 
 2. Run .devcontainer in vscode
 
-3. Init poetry
+3. Install Poetry env
 
    ```bash
-   poetry init
+   poetry install
 
-4. Use new python env from poetry
+4. Run Server
+
+   ```bash
+   cd app
+   uvicorn main:app --reload
