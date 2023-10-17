@@ -12,7 +12,7 @@ This is a basic Fastapi project setup for a Python development environment using
 
 2. Run .devcontainer in vscode
 
-3. Install Poetry env
+3. Install Poetry env and use
 
    ```bash
    poetry install
