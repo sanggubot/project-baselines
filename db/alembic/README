@@ -1,0 +1,7 @@
+Generic single-database configuration.
+
+alembic history
+alembic downgrade -1
+alembic upgrade head
+alembic revision --autogenerate -m "auto test"
+alembic revision -m "init"
