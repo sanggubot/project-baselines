@@ -33,6 +33,15 @@ target_metadata = Base.metadata
 config.set_main_option("sqlalchemy.url" , env_config.get("db_uri", None))
 
 
+# This is the schema to which the migration scripts should be applied
+TARGET_SCHEMA = env_config.get("db_autogenerate_target_schema", None)
+def include_name(name, type_, parent_names):
+    if type_ == "schema":
+        # note this will not include the default schema
+        return name in [TARGET_SCHEMA]
+    else:
+        return True
+
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 
@@ -72,7 +81,11 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            # This is the schema to which the migration scripts should be applied
+            include_schemas = True,
+            include_name = include_name,
         )
 
         with context.begin_transaction():

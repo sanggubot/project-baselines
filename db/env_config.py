@@ -12,4 +12,5 @@ env_config = {
     "db_port": os.environ.get("DB_PORT"),
     "db_name": os.environ.get("DB_NAME"),
     "db_uri": os.environ.get("DB_URI"),
+    "db_autogenerate_target_schema": os.environ.get("DB_AUTOGENERATE_TARGET_SCHEMA"),
 }

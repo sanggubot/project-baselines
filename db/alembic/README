@@ -5,3 +5,10 @@ alembic downgrade -1
 alembic upgrade head
 alembic revision --autogenerate -m "auto test"
 alembic revision -m "init"
+alembic check
+
+https://medium.com/@johnidouglasmarangon/using-migrations-in-python-sqlalchemy-with-alembic-docker-solution-bd79b219d6a <- +schema
+https://alembic.sqlalchemy.org/en/latest/tutorial.html
+https://alembic.sqlalchemy.org/en/latest/autogenerate.html
+https://blog.aaronroh.org/115
+https://codeac.tistory.com/114
