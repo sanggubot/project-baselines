@@ -7,7 +7,6 @@ from alembic import context
 
 import os
 from env_config import env_config
-from model import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -23,6 +22,8 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 # target_metadata = None
+
+from model import Base
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -35,10 +36,15 @@ config.set_main_option("sqlalchemy.url" , env_config.get("db_uri", None))
 
 # This is the schema to which the migration scripts should be applied
 TARGET_SCHEMA = env_config.get("db_autogenerate_target_schema", None)
+# This is for Supabase Postgres Initial Setting
+IGNORE_TABLES = ['users', 'refresh_tokens', 'audit_log_entries', 'instances', 'schema_migrations']
 def include_name(name, type_, parent_names):
+    # print(name, type_, parent_names)
     if type_ == "schema":
         # note this will not include the default schema
-        return name in [TARGET_SCHEMA]
+        return name in [None, TARGET_SCHEMA]
+    elif parent_names.get("schema_qualified_table_name", None) in IGNORE_TABLES:
+        return False
     else:
         return True
 
