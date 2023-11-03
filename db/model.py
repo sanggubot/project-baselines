@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, Enum, ARRAY, TIMESTAMP, UUID, ForeignKey, VARCHAR
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import Column, ARRAY, TIMESTAMP, UUID, VARCHAR
+from sqlalchemy.orm import DeclarativeBase
 
 class Base(DeclarativeBase):
     pass

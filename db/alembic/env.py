@@ -5,7 +5,6 @@ from sqlalchemy import pool
 
 from alembic import context
 
-import os
 from env_config import env_config
 
 # this is the Alembic Config object, which provides
