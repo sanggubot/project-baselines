@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "python-devcontainer-fastapi"
+name = "python-db-sqlalchemy-alembic"
 version = "0.1.0"
 description = ""
 authors = ["sanggubot <sanggubot@gmail.com>"]
@@ -8,8 +8,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 python-dotenv = "^1.0.0"
-fastapi = "^0.103.2"
-uvicorn = {extras = ["standard"], version = "^0.23.2"}
 sqlalchemy = "^2.0.22"
 alembic = "^1.12.1"
 psycopg2 = "^2.9.9"
