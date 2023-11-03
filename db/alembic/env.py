@@ -23,6 +23,7 @@ if config.config_file_name is not None:
 # target_metadata = None
 
 from model import Base
+
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -30,13 +31,21 @@ target_metadata = Base.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-config.set_main_option("sqlalchemy.url" , env_config.get("db_uri", None))
+config.set_main_option("sqlalchemy.url", env_config.get("db_uri", None))
 
 
 # This is the schema to which the migration scripts should be applied
 TARGET_SCHEMA = env_config.get("db_autogenerate_target_schema", None)
 # This is for Supabase Postgres Initial Setting
-IGNORE_TABLES = ['users', 'refresh_tokens', 'audit_log_entries', 'instances', 'schema_migrations']
+IGNORE_TABLES = [
+    "users",
+    "refresh_tokens",
+    "audit_log_entries",
+    "instances",
+    "schema_migrations",
+]
+
+
 def include_name(name, type_, parent_names):
     # print(name, type_, parent_names)
     if type_ == "schema":
@@ -46,6 +55,7 @@ def include_name(name, type_, parent_names):
         return False
     else:
         return True
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
@@ -89,8 +99,8 @@ def run_migrations_online() -> None:
             connection=connection,
             target_metadata=target_metadata,
             # This is the schema to which the migration scripts should be applied
-            include_schemas = True,
-            include_name = include_name,
+            include_schemas=True,
+            include_name=include_name,
         )
 
         with context.begin_transaction():
