@@ -45,3 +45,6 @@ https://alembic.sqlalchemy.org/en/latest/tutorial.html
 https://alembic.sqlalchemy.org/en/latest/autogenerate.html
 https://blog.aaronroh.org/115
 https://codeac.tistory.com/114 -->
+
+<!-- need version file
+need .env setting -->
