@@ -23,7 +23,7 @@
 				"oderwat.indent-rainbow",
 				"ms-azuretools.vscode-docker",
 				"github.copilot"
-			]
+			]																																											
 		}
 	},
 	"remoteUser": "vscode"
